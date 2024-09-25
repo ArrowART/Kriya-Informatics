@@ -1,7 +1,89 @@
+/* .animation{
+    animation:word 0.5s linear ;
+   
+    overflow: hidden;
+  
+  }
+  
+  @keyframes word {
+    0%{
+      width: 0;
+    }
+  50%{
+       width:50px ;
+  }
+  
+    100%{
+      width: 250px;
+    }
+  }
+   */
+/* @keyframes push-text {
+    0% {
+        transform: translateX(-90px) scaleX(1.2);
+    }
 
-.home{
-    height: calc(100vh - 80px);
+    20% {
+        transform: translateX(-70px) scaleX(1.2);
 
+    }
+
+    40% {
+        transform: translateX(-50px) scaleX(1.2);
+
+    }
+
+    60% {
+        transform: translateX(-30px) scaleX(1.2);
+    }
+
+    80% {
+        transform: translateX(-10px) scaleX(1.2);
+    }
+
+    100% {
+
+        transform: translateX(0);
+    }
 }
 
+.push-text {
+    display: inline-block;
+    animation: push-text 1.5s ease-in-out forwards;
+} */
 
+
+@keyframes smooth-push-fade-in {
+    0% {
+        opacity: 0;
+        /* Fully visible */
+        transform: translateX(-100px) scaleX(1.15);
+    }
+
+    30% {
+        opacity: 0.2;
+        /* Almost visible */
+        transform: translateX(-60px) scaleX(1.1);
+    }
+
+    60% {
+
+        opacity: 0.8;
+        /* Start fading in */
+        transform: translateX(-30px) scaleX(1.05);
+    }
+
+    100% {
+
+        opacity: 1;
+        /* Start invisible */
+        transform: translateX(0) scaleX(1);
+    }
+}
+
+.push-text {
+    display: inline-block;
+    opacity: 0;
+    /* Ensure the text starts invisible */
+    animation: smooth-push-fade-in 2s ease forwards;
+}

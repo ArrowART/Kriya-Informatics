@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useLocation } from "react-router-dom";
 export default function Header() {
-
   const [menuOpen, setMenuOpen] = useState(false);
-
   const handleToggle = () => {
     setMenuOpen(!menuOpen);
   };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path;
+
   useEffect(() => {
     const collapseMenu = document.getElementById('collapseMenu');
     const links = collapseMenu.getElementsByTagName('a');
-
     const handleLinkClick = (event) => {
       const href = event.target.getAttribute('href');
       if (href.startsWith('#')) {
@@ -27,8 +25,8 @@ export default function Header() {
           block: 'center'
         });
       }
+      setMenuOpen(false);
     };
-
     for (let link of links) {
       link.addEventListener('click', handleLinkClick);
     }
@@ -38,18 +36,14 @@ export default function Header() {
       }
     };
   }, []);
-
   return (
-
     <header className='flex border-b border-1 bg-white min-h-[70px] tracking-wide relative z-50 sticky top-0'>
       <div className='relative flex flex-wrap items-center justify-around w-full gap-6 px-10 py-3'>
-        <a href="/"><img src="/Images/Kriya Informatics.png" alt="logo" className='w-36' />
-        </a>
-
+        <a href="/"><img src="/Images/Kriya Informatics.png" alt="logo" className='w-36' /></a>
         <div id="collapseMenu"
-          className={`lg:flex ${menuOpen ? 'block' : 'hidden'} max-lg:fixed max-lg:bg-white max-lg:w-2/3 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-4 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto`}
+          className={`lg:flex ${menuOpen ? 'block' : 'hidden'} max-lg:fixed max-lg:bg-white max-lg:w-2/3 max-lg:min-w-[270px] max-lg:top-0 max-lg:left-0 max-lg:p-4 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto`}
         >
-          <button id="toggleClose" className='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3' onClick={handleToggle}>
+          <button id="toggleClose" className='lg:hidden fixed top-3 right-8 z-[100] rounded-full bg-white p-3' onClick={handleToggle}>
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 fill-black" viewBox="0 0 320.591 320.591">
               <path
                 d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
@@ -59,24 +53,21 @@ export default function Header() {
                 data-original="#000000"></path>
             </svg>
           </button>
-
-          <ul
-            className='lg:flex lg:ml-10 lg:gap-x-10 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-2/3 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-4 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
+          <ul className='lg:flex lg:ml-10 lg:gap-x-10 max-lg:space-y-4 max-lg:fixed max-lg:bg-white  max-lg:min-w-[270px] md:w-[600px]   max-lg:top-0 max-lg:left-0 max-lg:p-4 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
             <li className='px-3 max-lg:border-b max-lg:pb-4 lg:hidden'>
               <Link to="/"><img src="/Images/Kriya Informatics.png" alt="logo" className='w-36' />
               </Link>
             </li>
             <li className='max-lg:border-b max-lg:px-3 max-lg:py-2'>
               <Link to='/' onClick={scrollToTop}
-                className='hover:text-[#007bff] text-[#0B4671]  font-medium text-base block'>Home
+                className={`lg:hover:underline hover:underline-offset-4 text-[#0B4671]  font-medium text-base block  ${isActive('/') ? 'lg:text-[#0B4671]  lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>Home
               </Link>
             </li>
-             
-            <li className='max-lg:border-b max-lg:px-3 max-lg:py-2'><Link to='/about'
-              className='hover:text-[#007bff] text-[#0B4671]  font-medium text-base block'>About Us</Link></li>
+            <li className='max-lg:border-b max-lg:px-3 max-lg:py-2'><Link to='/AboutUs' onClick={scrollToTop}
+              className={`lg:hover:underline hover:underline-offset-4  text-[#0B4671]  font-medium text-base block  ${isActive('/AboutUs') ? 'lg:text-[#0B4671] lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>About Us</Link></li>
             <li className='group text-[14px] max-lg:border-b max-lg:px-3 max-lg:py-2 relative'>
               <a href='#products'
-                className='hover:text-[#007bff] hover:fill-[#007bff] text-[#0B4671]  font-medium text-base block'>Services<svg
+                className={` hover:fill-[#007bff] text-[#0B4671]  font-medium text-base block ${isActive('/service') ? 'lg:text-[#0B4671] lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>Services<svg
                   xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" className="inline-block ml-1"
                   viewBox="0 0 24 24">
                   <path
@@ -86,57 +77,41 @@ export default function Header() {
               </a>
               <div
                 className='absolute lg:top-5 max-lg:top-8 -left-6 z-50 flex shadow-lg bg-white max-h-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-[700px] px-8 group-hover:pb-8 group-hover:pt-6 transition-all duration-500'>
-                <div className="lg:min-w-[180px] max-lg:min-w-[140px]">
-             
+                <div className="lg:min-w-[200px]  max-lg:min-w-[140px]">
                   <ul className='pt-3 mt-3 space-y-3 border-t '>
                     <li className='py-1 rounded max-lg:border-b'>
-                      <Link to='/research' onClick={scrollToTop}
-                        className='hover:text-[#007bff] text-[#0B4671]  font-medium text-base block'>Research article proposal
-                      </Link>
-                    </li>
-
-                    <li className='py-1 rounded max-lg:border-b'>
-                      <Link to='/writing' onClick={scrollToTop}
-                        className='hover:text-[#007bff] text-[#0B4671]  font-medium text-base block'>Research article Writing
-                      </Link>
-                    </li>
-
-                    <li className='py-1 rounded max-lg:border-b'>
-                      <Link to='/synopsis' onClick={scrollToTop}
-                        className='hover:text-[#007bff] text-[#0B4671]  font-medium text-base block'>Synopsis and Thesis Writing
+                      <Link to='/ResearchArticleProposal' onClick={scrollToTop}
+                        className={`lg:hover:underline hover:underline-offset-4 text-[#0B4671]  font-medium text-base block ${isActive('/ResearchArticleProposal') ? 'lg:text-[#0B4671] lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>Research article proposal
                       </Link>
                     </li>
                     <li className='py-1 rounded max-lg:border-b'>
-                      <Link to='/book' onClick={scrollToTop}
-                        className='hover:text-[#007bff]  font-medium text-[#0B4671]  text-base block'>Academic book Publication
+                      <Link to='/ResearchArticleWriting' onClick={scrollToTop}
+                        className={`lg:hover:underline hover:underline-offset-4 text-[#0B4671]  font-medium text-base block  ${isActive('/ResearchArticleWriting') ? 'lg:text-[#0B4671] lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>Research article Writing
                       </Link>
                     </li>
                     <li className='py-1 rounded max-lg:border-b'>
-                      <Link to='/conference' onClick={scrollToTop}
-                        className='hover:text-[#007bff]  font-medium text-[#0B4671]  text-base block'>International Conference Organizing
+                      <Link to='/SynopsisandThesisWriting' onClick={scrollToTop}
+                        className={`lg:hover:underline hover:underline-offset-4 text-[#0B4671]  font-medium text-base block ${isActive('/SynopsisandThesisWriting') ? 'lg:text-[#0B4671] lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>Synopsis and Thesis Writing
                       </Link>
                     </li>
-                   
+                    <li className='py-1 rounded max-lg:border-b'>
+                      <Link to='/AcademicBookPublication' onClick={scrollToTop}
+                        className={`lg:hover:underline hover:underline-offset-4  font-medium text-[#0B4671]  text-base block ${isActive('/AcademicBookPublication') ? 'lg:text-[#0B4671] lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>Academic book Publication
+                      </Link>
+                    </li>
+                    <li className='py-1 rounded max-lg:border-b'>
+                      <Link to='/InternationalConferenceOrganizing' onClick={scrollToTop}
+                        className={`lg:hover:underline hover:underline-offset-4  font-medium text-[#0B4671]  text-base block ${isActive('/InternationalConferenceOrganizing') ? 'lg:text-[#0B4671] lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>International Conference Organizing
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
             </li>
-            {/* <li className='max-lg:border-b max-lg:px-3 max-lg:py-2'>
-              <Link to='/blogs' onClick={scrollToTop}
-                className='hover:text-[#007bff] text-gray-500 font-medium text-base block'>Blogs
-              </Link>
-            </li> */}
-            <li className='max-lg:border-b max-lg:px-3 max-lg:py-2'><Link to='/contact' onClick={scrollToTop}
-              className='hover:text-[#007bff] text-[#0B4671] font-medium text-base block'>Contact Us</Link></li>
-           
-            {/* <li className="-my-2 max-lg:border-b max-lg:px-3 max-lg:py-2">
-              <Link to='/login' onClick={scrollToTop}>
-                <button className="p-2 px-3 text-white ease-in-out transform bg-blue-500 rounded-lg duration-250 hover:bg-blue-600">Login</button>
-              </Link>
-            </li> */}
+            <li className='max-lg:border-b max-lg:px-3 max-lg:py-2'><Link to='/ContactUs' onClick={scrollToTop}
+              className={`lg:hover:underline hover:underline-offset-4 text-[#0B4671] font-medium text-base block ${isActive('/ContactUs') ? 'lg:text-[#0B4671] lg:underline lg:underline-offset-4 lg:bg-white text-white lg:p-0 p-1 w-fit  bg-[#0B4671]' : ''}`}>Contact Us</Link></li>
           </ul>
         </div>
-
         <div className='flex items-center ml-auto lg:hidden'>
           <button id="toggleOpen" onClick={handleToggle}>
             <svg className="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -154,287 +129,3 @@ export default function Header() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useState, useRef } from "react";
-// import "./Header.css";
-// import { Link } from "react-router-dom";
-// import { RiMenu4Fill } from "react-icons/ri";
-// import { FaAngleDown } from "react-icons/fa";
-
-// function Header() {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-//   const [dropdown1Open, setdropdown1Open] = useState(false);
-//   // const [scroll, setScroll] = useState(false);
-//   // click outside to close
-//   const menuRef = useRef(null);
-//   const menuRef2 = useRef(null);
-//   // 
-
-//   const scrollToTop = () => {
-//     window.scrollTo({ top: 0, behavior: "smooth" });
-//   };
-
-//   const toggleMenu = () => {
-//     setIsMenuOpen(!isMenuOpen);
-//   };
-
-//   const toggleDropdown1 = () => {
-//     setdropdown1Open(!dropdown1Open);
-//   };
-
-
-//   // const handleScroll = () => {
-//   //   if (window.scrollY > 1) {
-//   //     setScroll(true);
-//   //   } else {
-//   //     setScroll(false);
-//   //   }
-//   // };
-
-
-
-
-//   // close menu when click outside py-2 text-center w-full 
-//   useEffect(() => {
-//     const handleClickOutside = (event) => {
-//       if (menuRef.current && !menuRef.current.contains(event.target)) {
-//         setIsMenuOpen(false);
-//         setdropdown1Open(false);
-//       }
-//     };
-//     document.addEventListener("mousedown", handleClickOutside);
-//     return () => {
-//       document.removeEventListener("mousedown", handleClickOutside);
-//     };
-//   }, []);
-//   // 
-//   // close menu when click outside 2
-//   useEffect(() => {
-//     const handleClickOutside2 = (event) => {
-//       if (menuRef2.current && !menuRef2.current.contains(event.target)) {
-//         setdropdown1Open(false);
-//       }
-//     };
-//     document.addEventListener("mousedown", handleClickOutside2);
-//     return () => {
-//       document.removeEventListener("mousedown", handleClickOutside2);
-//     };
-//   }, []);
-
-//   // 
-
-
-
-//   // useEffect(() => {
-//   //   window.addEventListener("scroll", handleScroll);
-//   //   return () => {
-//   //     window.removeEventListener("scroll", handleScroll);
-//   //   };
-//   // }, []);
-
-//   return (
-//     <>
-//       <nav
-//         className={`
-//             "bg-primary-white shadow-lg  w-full start-0 transition-all z-20 `}
-//       >
-//         <div className="max-w-screen-xl relative    w-full flex items-center justify-between mx-auto p-5 md:px-16 2xl:px-0  transition-all"
-//           ref={menuRef}
-//         >
-//           <Link to="/" onClick={scrollToTop}>
-//             <img className="h-14" src="/Images/Kriya Informatics.png" alt="logo" />
-//           </Link>
-//           <div className="z-50">
-//             <button onClick={() => { toggleMenu(); setdropdown1Open(false) }} className="md:hidden  border p-1 rounded-lg"><RiMenu4Fill className="text-2xl " />   </button>
-
-//             <ul className={`${isMenuOpen ? 'block ' : 'hidden'}  lg:flex   lg:flex-row  flex-col  font-semibold  items-center gap-x-10  `}>
-//               <Link to='/' >
-//                 <li onClick={toggleMenu} className="cursor-pointer p-1 py-2 text-center w-full text-[#0B4671]   ">Home</li>
-//               </Link>
-//               <Link to='/about'>
-
-//                 <li onClick={toggleMenu} className="cursor-pointer p-1 py-2 text-center w-full text-[#0B4671]  ">About</li>
-//               </Link>
-             
-//                 <li onClick={() => { toggleDropdown1(), setIsMenuOpen(false) }} className="cursor-pointer text-[#0B4671] inline-flex gap-x-2 items-center p-1 py-2 text-center w-full   justify-center transition-all "
-//                 > Service <FaAngleDown
-//                     className={`${dropdown1Open ? "rotate-180" : "rotate-0"
-//                       } transition-transform  duration-300 ease-in-out text-xl`}
-//                   /> </li>
-             
-//               <Link to='/contact'>
-//                 <li onClick={toggleMenu} className="cursor-pointer p-1 py-2 text-center w-full  text-[#0B4671] ">Contact</li>
-//               </Link>
-//             </ul>
-//           </div>
-
-//           <div
-//             className={`${dropdown1Open ? "block" : "hidden"
-//               } top-[70px] border right-0 2xl:-right-16 lg:w-80 w-full p-4 z-50 bg-white rounded-lg absolute lg:h-auto`}
-//           >
-//             <ul className="gap-2 p-4 md:p-0 font-medium rounded-lg text-center w-full">
-//               <Link to="/research" onClick={scrollToTop}>
-//                 <li
-//                   onClick={toggleDropdown1}
-//                   className="p-2 py-3 w-full  text-[#0B4671]   transition rounded-md border-b"
-//                 >
-//                   Research Article Proposal
-//                 </li>
-//               </Link>
-//               <Link to="/writing" onClick={scrollToTop}>
-//                 <li
-//                   onClick={toggleDropdown1}
-//                   className="p-2 py-3 w-full  text-[#0B4671]   transition rounded-md border-b"
-//                 >
-//                   Research Article Writing
-//                 </li>
-//               </Link>
-//               <Link to="/synopsis" onClick={scrollToTop}>
-//                 <li
-//                   onClick={toggleDropdown1}
-//                   className="p-2 py-3 w-full text-[#0B4671]    transition rounded-md border-b"
-//                 >
-//                   Synopsis and Thesis Writing
-//                 </li>
-//               </Link>
-//               <Link to="/book" onClick={scrollToTop}>
-//                 <li
-//                   onClick={toggleDropdown1}
-//                   className="p-2 py-3 w-full text-[#0B4671]    transition rounded-md border-b"
-//                 >
-//                   Academic Book Publication
-//                 </li>
-//               </Link>
-//               <Link to="/conference" onClick={scrollToTop}>
-//                 <li
-//                   onClick={toggleDropdown1}
-//                   className="p-2 py-3 w-full text-[#0B4671]    transition rounded-md border-b"
-//                 >
-//                   International Conference Organizing
-//                 </li>
-//               </Link>
-
-//               {/* <li ref={menuRef2}>
-//                 <button
-//                   onClick={toggleDropdown1}
-//                   className="p-2 w-full    transition rounded-md border-b flex items-center gap-2 justify-center"
-//                 >
-//                   Journal Overview
-//                   <FaAngleDown
-//                     className={`${
-//                       dropdown1Open ? "rotate-180" : "rotate-0"
-//                     } transition-transform duration-300 ease-in-out text-xl`}
-//                   />
-//                 </button>
-//                 <div
-//                   className={`${
-//                     dropdown1Open ? "block" : "hidden"
-//                   } z-10 font-normal bg-primary-white border rounded-lg shadow w-48 absolute  left-0 md:left-32 lg:-left-48  lg:-mt-10 -mt-28`}
-//                 >
-//                   <ul className="p-2 text-sm">
-//                     <li onClick={()=>{toggleMenuDrop1() , scrollToTop()}}>
-//                       <Link
-//                         to="/editorial-board"
-//                         className="block px-4 py-2 border-b rounded   transition"
-//                       >
-//                         Editorial Board
-//                       </Link>
-//                     </li>
-//                     <li onClick={()=>{toggleMenuDrop1() , scrollToTop()}}>
-//                       <Link
-//                         to="/peer-review"
-//                         className="block px-4 py-2 border-b rounded   transition"
-//                       >
-//                         Peer Review Process
-//                       </Link>
-//                     </li>
-//                     <li onClick={()=>{toggleMenuDrop1() , scrollToTop()}}>
-//                       <Link
-//                         to="/pub-ethics"
-//                         className="block px-4 py-2 border-b rounded   transition"
-//                       >
-//                         Publication Ethics
-//                       </Link>
-//                     </li>
-//                     <li onClick={()=>{toggleMenuDrop1() , scrollToTop()}}>
-//                       <Link
-//                         to="/abstracting&index"
-//                         className="block px-4 py-2 border-b rounded   transition"
-//                       >
-//                         Abstracting and Indexing
-//                       </Link>
-//                     </li>
-//                     <li onClick={()=>{toggleMenuDrop1() , scrollToTop()}}>
-//                       <Link
-//                         to="/articleindex"
-//                         className="block px-4 py-2 border-b rounded   transition"
-//                       >
-//                         Article Processing Charges
-//                       </Link>
-//                     </li>
-                    
-//                   </ul>
-//                 </div>
-//               </li> */}
-//             </ul>
-//           </div>
-//         </div>
-//       </nav>
-//       {/* <div className={${isMenuOpen ? 'block':'hidden' } fixed h-screen backdrop-blur-sm top-0 w-full left-0 lg:hidden z-10}></div> */}
-//     </>
-//   );
-// }
-
-// export default Header;

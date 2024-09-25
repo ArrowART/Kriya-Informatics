@@ -1,14 +1,10 @@
 import React from 'react'
-
 function Research() {
     return (<>
         <div className="max-w-[60rem] mx-auto h-fit my-10">
             <div className='lg:grid lg:grid-cols-1  px-5'>
-
-
                 <p className="mx-auto my-3 lg:text-4xl text-2xl text-center font-bold text-[#0B4671] mb-10 ">Research Article Proposal</p>
                 <p className=" flex justify-center  items-center  text-justify lg:text-lg">
-
                     Research article proposal
                     Kriya Informatics especially gives support to writing research
                     article proposals to PhD research candidates. Kriya Informatics
@@ -21,7 +17,6 @@ function Research() {
                     ideas to realization in the latest technologies.
                 </p>
             </div>
-
             <div className='px-5 flex flex-col gap-8 my-5 lg:text-lg'>
                 <div className='flex  gap-3 items-center '>
                     <img className=' w-14 h-14' src='/Images/bbb.jpeg' alt='hhh' />
@@ -46,7 +41,6 @@ function Research() {
                 <div className='flex gap-3 items-center'>
                     <img className=' w-16 h-14' src='/Images/bbb.jpeg' alt='hhh' />
                     <p className="">Each research question, rationale study, the hypothesis we construct are responsive and researcher friendly.
-
                     </p>
                 </div>
             </div>
@@ -54,5 +48,4 @@ function Research() {
     </>
     )
 }
-
 export default Research
