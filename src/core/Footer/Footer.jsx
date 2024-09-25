@@ -54,14 +54,17 @@ export default function Footer() {
           </div>
 
         </div>
-        <hr className="my-3 md:my-6 border-gray-200 sm:mx-auto lg:my-4" />
-        <div className=" font-semibold text-white lg:px-12 px-5  ">
-            <h1 className='text-center mb-3 font-bold text-lg text-white uppercase underline '> Address</h1>
+        <hr className="my-3 md:my-6 border-gray-200 sm:mx-auto lg:my-2" />
+        <div className=" font-semibold text-white lg:px-12 px-4  ">
+          <div className='flex justify-center items-center gap-2'>
+            <img className='w-6 ' src='/Images/Location (1).png' alt='location ' />
+            <h1 className='text-center mb-3 font-bold text-lg text-white uppercase underline mt-3 '> Location</h1>
+          </div>
           <div className='flex items-center justify-center gap-4'>
 
-            <img className='w-7' src='/Images/Location (1).png' alt='location ' />
-            <a className='hover:underline'   ><h1 className=''>215B, Sargunaveedhi, Ramavarmapuram, Nagercoil, Kanyakumari District - 629001.
-             <br/> Landmark: Near Sudalaimadasamy Koil </h1></a>
+
+            <a className='hover:underline'   ><h1 className='text-center'>215B, Sargunaveedhi, Ramavarmapuram, Nagercoil, Kanyakumari District - 629001.
+              <br /> Landmark: Near Sudalaimadasamy Koil </h1></a>
           </div>
         </div>
         <hr className="my-3 md:my-6 border-gray-200 sm:mx-auto lg:my-4" />
